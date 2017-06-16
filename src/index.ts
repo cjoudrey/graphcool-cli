@@ -22,22 +22,25 @@ import { GraphcoolAuthServer } from './api/GraphcoolAuthServer'
 import {
   sentryDSN,
   graphcoolConfigFilePath,
-  unknownOptionsWarning
+  unknownOptionsWarning,
+  outdatedMessage
 } from './utils/constants'
+import { getLatestVersion } from './utils/upgrade'
+import semver = require('semver')
 import {
   usageRoot,
 } from './utils/usage'
 import {optionsForCommand, usageForCommand} from './utils/arguments'
+import {Config} from './utils/config'
 
 const Raven = require('raven')
 const debug = require('debug')('graphcool')
 const {version} = require('../../package.json')
-
-import {Config} from './utils/config'
+const isCI = !!process.env.CI
 
 async function main() {
   // initialize sentry
-  Raven.config(sentryDSN).install()
+  //Raven.config(sentryDSN).install()
 
   const env = defaultEnvironment()
   const argv = minimist(process.argv.slice(2))
@@ -49,6 +52,12 @@ async function main() {
   }
 
   const displayQuickstart = shouldDisplayQuickstart()
+
+  try {
+    await checkUpdate(env)
+  } catch(e) {
+    Raven.captureException(e)
+  }
 
   switch (command) {
 
@@ -218,6 +227,24 @@ async function main() {
   }
 
   process.stdout.write('\n')
+}
+
+async function checkUpdate(env: SystemEnvironment) {
+  if (!env.out.isTTY || isCI) {
+    return
+  }
+
+  // Skip check if we already checked in past 24 hours
+  // if (lastCheckData < Now - 24 hours) {
+  //   return
+  // }
+
+  const latestVersion = await getLatestVersion()
+
+  if (semver.gt(latestVersion, version)) {
+    env.out.write(outdatedMessage(version, latestVersion))
+    env.out.write('\n')
+  }
 }
 
 async function checkAuth(env: SystemEnvironment, authTrigger: AuthTrigger): Promise<boolean> {

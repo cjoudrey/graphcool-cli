@@ -6,6 +6,8 @@ import figures = require('figures')
 
 export default class TestOut implements Out {
 
+  isTTY: boolean = true
+
   write(message: string): void {
     fs.appendFileSync('test.out', message)
   }

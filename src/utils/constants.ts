@@ -433,3 +433,7 @@ Use ${chalk.cyan(`\`graphcool ${command} help\``)} to see a list of all possible
 ${chalk.bold('Error:')} The following option is not recognized: ${chalk.red(`${unknownOptions[0]}`)}
 Use ${chalk.cyan(`\`graphcool ${command} help\``)} to see a list of all possible options.
 `
+
+export const outdatedMessage = (currentVersion: string, latestVersion: string) => `\
+${chalk.yellow(figures.warning)} Your current version of Graphcool is out of date. The latest version is ${chalk.bold(`v${latestVersion}`)} while you're on ${chalk.bold(`v${currentVersion}`)}.
+`

@@ -75,6 +75,7 @@ export interface MigrationResult {
 }
 
 export interface Out {
+  isTTY: boolean
   write(message: string): void
   writeError(message: string): void
   startSpinner(message: string): void

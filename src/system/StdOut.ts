@@ -10,6 +10,8 @@ const debug = require('debug')('graphcool')
 
 export default class StdOut implements Out {
 
+  isTTY: boolean = !!process.stdout.isTTY
+
   spinner: any
 
   write(message: string): void {
