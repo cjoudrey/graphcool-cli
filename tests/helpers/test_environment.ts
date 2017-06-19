@@ -13,6 +13,8 @@ export function testEnvironment(storage: any): TestSystemEnvironment {
   const resolver = new TestResolver(storage)
   const config = new Config(resolver)
 
+  config.set({ lastUpdateCheck: Date.now() })
+
   return {
     resolver: resolver,
     out: new TestOut(),

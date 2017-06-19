@@ -22,10 +22,9 @@ import { GraphcoolAuthServer } from './api/GraphcoolAuthServer'
 import {
   sentryDSN,
   graphcoolConfigFilePath,
-  unknownOptionsWarning,
-  outdatedMessage
+  unknownOptionsWarning
 } from './utils/constants'
-import { getLatestVersion } from './utils/upgrade'
+import { checkUpdate } from './utils/update_reminder'
 import semver = require('semver')
 import {
   usageRoot,
@@ -36,7 +35,6 @@ import {Config} from './utils/config'
 const Raven = require('raven')
 const debug = require('debug')('graphcool')
 const {version} = require('../../package.json')
-const isCI = !!process.env.CI
 
 async function main() {
   // initialize sentry
@@ -54,7 +52,7 @@ async function main() {
   const displayQuickstart = shouldDisplayQuickstart()
 
   try {
-    await checkUpdate(env)
+    await checkUpdate(env, version)
   } catch(e) {
     Raven.captureException(e)
   }
@@ -227,24 +225,6 @@ async function main() {
   }
 
   process.stdout.write('\n')
-}
-
-async function checkUpdate(env: SystemEnvironment) {
-  if (!env.out.isTTY || isCI) {
-    return
-  }
-
-  // Skip check if we already checked in past 24 hours
-  // if (lastCheckData < Now - 24 hours) {
-  //   return
-  // }
-
-  const latestVersion = await getLatestVersion()
-
-  if (semver.gt(latestVersion, version)) {
-    env.out.write(outdatedMessage(version, latestVersion))
-    env.out.write('\n')
-  }
 }
 
 async function checkAuth(env: SystemEnvironment, authTrigger: AuthTrigger): Promise<boolean> {

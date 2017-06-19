@@ -19,9 +19,10 @@ export type Command =
 export type Region = 'eu-west-1'
 
 export interface GraphcoolConfig {
-  token?: string
+  token?: string,
+  lastUpdateCheck?: number
 }
-export type GraphcoolConfigOptionName = 'token'
+export type GraphcoolConfigOptionName = 'token' | 'lastUpdateCheck'
 
 export interface Resolver {
   read(path: string): string
@@ -75,7 +76,6 @@ export interface MigrationResult {
 }
 
 export interface Out {
-  isTTY: boolean
   write(message: string): void
   writeError(message: string): void
   startSpinner(message: string): void

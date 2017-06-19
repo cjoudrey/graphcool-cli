@@ -395,3 +395,44 @@ export const mockedExportResponse = `\
   }
 }`
 
+export const mockGithubReleaseResponse =`\
+{
+  "url": "https://api.github.com/repos/graphcool/graphcool-cli/releases/6683625",
+  "assets_url": "https://api.github.com/repos/graphcool/graphcool-cli/releases/6683625/assets",
+  "upload_url": "https://uploads.github.com/repos/graphcool/graphcool-cli/releases/6683625/assets{?name,label}",
+  "html_url": "https://github.com/graphcool/graphcool-cli/releases/tag/v1.1.0",
+  "id": 6683625,
+  "tag_name": "v1.1.0",
+  "target_commitish": "master",
+  "name": "",
+  "draft": false,
+  "author": {
+    "login": "nikolasburk",
+    "id": 4058327,
+    "avatar_url": "https://avatars2.githubusercontent.com/u/4058327?v=3",
+    "gravatar_id": "",
+    "url": "https://api.github.com/users/nikolasburk",
+    "html_url": "https://github.com/nikolasburk",
+    "followers_url": "https://api.github.com/users/nikolasburk/followers",
+    "following_url": "https://api.github.com/users/nikolasburk/following{/other_user}",
+    "gists_url": "https://api.github.com/users/nikolasburk/gists{/gist_id}",
+    "starred_url": "https://api.github.com/users/nikolasburk/starred{/owner}{/repo}",
+    "subscriptions_url": "https://api.github.com/users/nikolasburk/subscriptions",
+    "organizations_url": "https://api.github.com/users/nikolasburk/orgs",
+    "repos_url": "https://api.github.com/users/nikolasburk/repos",
+    "events_url": "https://api.github.com/users/nikolasburk/events{/privacy}",
+    "received_events_url": "https://api.github.com/users/nikolasburk/received_events",
+    "type": "User",
+    "site_admin": false
+  },
+  "prerelease": false,
+  "created_at": "2017-06-12T12:57:22Z",
+  "published_at": "2017-06-12T16:04:13Z",
+  "assets": [
+
+  ],
+  "tarball_url": "https://api.github.com/repos/graphcool/graphcool-cli/tarball/v1.1.0",
+  "zipball_url": "https://api.github.com/repos/graphcool/graphcool-cli/zipball/v1.1.0",
+  "body": ""
+}
+`

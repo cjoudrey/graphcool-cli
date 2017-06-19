@@ -15,6 +15,7 @@ export const consoleURL = (token: string, projectName?: string) =>
 export const playgroundURL = (token: string, projectName: string) =>
   `https://console.graph.cool/token?token=${token}&redirect=/${encodeURIComponent(projectName)}/playground`
 export const sampleSchemaURL = `http://graphqlbin.com/empty.graphql`
+export const latestVersionUrl = 'https://api.github.com/repos/graphcool/graphcool-cli/releases/latest'
 
 /*
  * Sentry
